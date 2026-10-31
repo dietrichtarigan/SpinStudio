@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpinStudio</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="/vendor/plotly.min.js"></script>
+</head>
+<body>
+<header class="ribbon">
+  <div class="brand"><span class="logo">◉</span> SpinStudio <small>spintronic &amp; neuromorphic device simulation</small></div>
+  <div class="group">
+    <label class="lbl">Module</label>
+    <select id="module" title="Micromagnetics 2D: spin waves, domain walls, skyrmions. Macrospin: MTJ, sMTJ/p-bits, STO reservoir">
+      <option value="micro">Micromagnetics 2D</option>
+      <option value="macro">Macrospin devices</option>
+    </select>
+  </div>
+  <div class="group">
+    <label class="lbl">Preset</label>
+    <select id="preset"></select>
+    <button id="btnNew" title="Load the selected preset">Load</button>
+    <button id="btnOpen" title="Open a configuration file (.json)">Open…</button>
+    <button id="btnSave" title="Save the configuration as .json">Save</button>
+    <button id="btnRuns" title="Configurations of previous runs">Runs</button>
+    <input type="file" id="fileOpen" accept=".json" hidden>
+  </div>
+  <div class="group">
+    <button id="btnCheck" title="Validate parameters and preview geometry">✓ Check</button>
+    <button id="btnSim" class="primary micro-only" title="Run time-domain simulation (F8)">▶ Compute</button>
+    <button id="btnTrain" class="accent micro-only" title="Inverse design: optimise the design region">✦ Train</button>
+    <button id="btnMStudy" class="primary macro-only hidden" title="Run the device study (F8)">▶ Device study</button>
+    <button id="btnMPbit" class="accent macro-only hidden" title="Run the p-bit network">⚄ p-bit network</button>
+    <button id="btnMRes" class="accent macro-only hidden" title="Run reservoir computing">≋ Reservoir</button>
+    <button id="btnStop" class="danger" disabled>■ Stop</button>
+  </div>
+  <div class="group right">
+    <a id="btnExport" class="button disabled" href="/api/result/export.npz" title="Download all results (.npz)">⤓ Export results</a>
+    <span id="device" class="chip">connecting…</span>
+  </div>
+</header>
+
+<main>
+  <nav id="tree" class="panel">
+    <div class="panel-title">Model Builder</div>
+    <ul class="tree" id="treeList"></ul>
+  </nav>
+
+  <section id="settings" class="panel">
+    <div class="panel-title" id="settingsTitle">Settings</div>
+    <div id="settingsBody" class="settings-body"></div>
+    <div class="panel-title small">Physics check</div>
+    <div id="report" class="report"></div>
+  </section>
+
+  <section id="graphics" class="panel">
+    <div class="tabs" id="tabs"></div>
+    <div class="toolbar" id="toolbar"></div>
+    <div class="plotarea" id="plotarea">
+      <div id="plotMain" class="plot"></div>
+      <div id="plotSub" class="plot sub hidden"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="progress-row">
+    <div class="progress"><div id="progBar"></div></div>
+    <span id="progLabel">Ready</span>
+    <span id="progRate"></span>
+  </div>
+  <div id="messages" class="messages"></div>
+</footer>
+
+<dialog id="runsDialog">
+  <h3>Previous runs</h3>
+  <p class="muted">Loads the configuration of a previous run (results are stored on the server in <code>runs/</code>).</p>
+  <ul id="runsList"></ul>
+  <form method="dialog"><button>Close</button></form>
+</dialog>
+
+<script src="/static/app.js"></script>
+<script src="/static/macro.js"></script>
+</body>
+</html>

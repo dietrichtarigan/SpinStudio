@@ -1,0 +1,8 @@
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch>=2.6
+numpy
+scikit-image
+fastapi
+uvicorn[standard]
+pydantic>=2
+plotly

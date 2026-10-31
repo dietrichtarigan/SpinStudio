@@ -1,0 +1,27 @@
+# environments and caches
+.venv/
+__pycache__/
+*.pyc
+
+# third-party reference code (clone separately: https://github.com/a-papp/SpinTorch)
+SpinTorch/
+
+# personal notes and scratch files
+repo_response.txt
+/macrospin.py
+
+# generated output
+runs/
+ui_shots/
+ui_shots2/
+plots/
+models/
+*.log
+*.npz
+
+# one-off debugging scripts
+tools/dw_debug.py
+tools/dw_diag.sh
+tools/dw_run.sh
+tools/torque_debug.py
+tools/gui_check.sh
